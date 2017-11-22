@@ -199,7 +199,8 @@ namespace ecto_ros
     declare_io(const tendrils& /*p*/, tendrils& i, tendrils& o)
     {
       i.declare(&Mat2Image::mat_, "image", "A cv::Mat.");
-      o.declare(&Mat2Image::image_out_, "image", "A sensor_msg::Image message.");
+      o.declare(&Mat2Image::image_out_, "image", "A sensor_msg::ImagePtr message.");
+      o.declare(&Mat2Image::const_image_out_, "const_image", "A sensor_msg::ImageConstPtr message.");
     }
 
     int
@@ -215,12 +216,14 @@ namespace ecto_ros
       header_stanza(header_);
 
       *image_out_ = cv_bridge::CvImage(header_, *encoding_, mat).toImageMsg();
+      *const_image_out_ = *image_out_;
 
       return ecto::OK;
     }
     std_msgs::Header header_;
     ecto::spore<std::string> frame_id_;
-    ecto::spore<ImageConstPtr> image_out_;
+    ecto::spore<ImagePtr> image_out_;
+    ecto::spore<ImageConstPtr> const_image_out_;
     ecto::spore<cv::Mat> mat_;
     ecto::spore<std::string> encoding_;
     ecto::spore<bool> swap_rgb_;

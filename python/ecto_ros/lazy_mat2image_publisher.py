@@ -111,7 +111,7 @@ class LazyMat2ImagePublisher(ecto.BlackBox):
         return [
             self.subscribers_input[:] >> self.throttled_mat2image['has_subscribers'],
             self.throttle['flag'] >> self.throttled_mat2image['throttle'],
-            self.throttled_mat2image['image'] >> self.throttled_publisher['input'],
+            self.throttled_mat2image['const_image'] >> self.throttled_publisher['input'],
             self.throttle['flag'] >> self.throttled_publisher['throttle'],
             self.throttled_publisher['has_subscribers'] >> self.subscribers_output[:],
         ]
