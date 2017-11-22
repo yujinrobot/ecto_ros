@@ -1,4 +1,4 @@
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 2 REQUIRED)
 find_package(Eigen REQUIRED)
 
 include_directories(${catkin_INCLUDE_DIRS}
